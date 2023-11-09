@@ -10,9 +10,18 @@ console.log(CORS_ORIGIN);
 
 app.use(cors({ CORS_ORIGIN }));
 
+app.use((req, res, next) => {
+  console.log("Incoming request");
+  next();
+});
+
+const videoRouter = require("./routes/videos");
+
 app.get("/", (req, res) => {
   res.send("HELLO");
 });
+
+app.use("/videos", videoRouter);
 
 app.listen(PORT, () => {
   console.log(`App is listening on port ${PORT}`);
