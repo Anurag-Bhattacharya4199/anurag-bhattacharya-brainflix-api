@@ -5,10 +5,9 @@ const cors = require("cors");
 
 const { PORT, CORS_ORIGIN } = process.env;
 
-console.log(PORT);
-console.log(CORS_ORIGIN);
+app.use(cors({ origin: CORS_ORIGIN }));
 
-app.use(cors({ CORS_ORIGIN }));
+app.use(express.static("public"));
 
 app.use((req, res, next) => {
   console.log("Incoming request");
@@ -16,10 +15,6 @@ app.use((req, res, next) => {
 });
 
 const videoRouter = require("./routes/videos");
-
-app.get("/", (req, res) => {
-  res.send("HELLO");
-});
 
 app.use("/videos", videoRouter);
 
